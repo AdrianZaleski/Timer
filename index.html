@@ -2,36 +2,51 @@
 <html lang="en">
 <head>
     <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/clock-service.js"></script>
     <meta charset="UTF-8">
     <title>clock</title>
 </head>
 <body>
     <div id="clock"></div>
 <button type="button" id="start-pause" onclick="onClickStartPause()">Start</button>
+<button type="button" id="reset" onclick="resetClock()">Reset</button>
 
 </body>
 
 <script>
-    let seconds = 59;
     let isPaused = true;
     let intervalId;
-    $('#clock').html(seconds)
+    let clockService = new ClockService();
 
+    clockService.setDefaultTime();
+    $('#clock').html(clockService.getSeconds());
 
     function onClickStartPause(){
-        if(isPaused){
+        if(isPaused) {
             intervalId = setInterval(decrease, 1000);
             $('#start-pause').html('Paused');
         } else {
             clearInterval(intervalId);
             $('#start-pause').html('Start');
         }
-        isPaused != isPaused;
+        isPaused = !isPaused;
     }
 
+    function resetClock(){
+        seconds = clockService.getSeconds();
+        $('#clock').html(clockService.getSeconds())
+
+    }
+
+
     function decrease(){
-        seconds --;
-        $('#clock').html(seconds)
+        clockService.decreaseTime()
+        $('#clock').html(clockService.getSeconds())
+        if(clockService.getSeconds() == 0){
+            clearInterval(intervalId);
+            $('#start-pause').html('Start');
+            isPaused = true;
+            }
 
     }
 </script>
