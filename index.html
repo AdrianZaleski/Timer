@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <title>clock</title>
+</head>
+<body>
+    <div id="clock"></div>
+<button type="button" id="start-pause" onclick="onClickStartPause()">Start</button>
+
+</body>
+
+<script>
+    let seconds = 59;
+    let isPaused = true;
+    let intervalId;
+    $('#clock').html(seconds)
+
+
+    function onClickStartPause(){
+        if(isPaused){
+            intervalId = setInterval(decrease, 1000);
+            $('#start-pause').html('Paused');
+        } else {
+            clearInterval(intervalId);
+            $('#start-pause').html('Start');
+        }
+        isPaused != isPaused;
+    }
+
+    function decrease(){
+        seconds --;
+        $('#clock').html(seconds)
+
+    }
+</script>
+</html>
